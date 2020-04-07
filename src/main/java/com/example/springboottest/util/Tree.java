@@ -9,15 +9,30 @@ public class Tree<T> {
     private Tree right;
 
 
-    public List<T> preOrder(){
-        List<T> list = new ArrayList<>();
+    /**
+     * 前序遍历
+     */
+    public List<T> preOrder(List<T> list) {
+        T data = this.getData();
+        if (data!=null){
+            list.add(data);
+        }
+        Tree<T> left = this.getLeft();
+        if (left!=null){
+            left.preOrder(list);
+        }
+        Tree<T> right = this.getRight();
+        if (right!=null){
+            right.preOrder(list);
+        }
+        return list;
+    }
 
+    public List<T> midOrder() {
         return null;
     }
-    public List<T> midOrder(){
-        return null;
-    }
-    public List<T> afterOrder(){
+
+    public List<T> afterOrder() {
         return null;
     }
 
