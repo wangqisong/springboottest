@@ -5,15 +5,18 @@ import com.example.springboottest.model.UserDto;
 import com.example.springboottest.service.LoginService;
 import com.example.springboottest.service.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/userController")
 public class UserController {
 
     @Resource
@@ -21,16 +24,18 @@ public class UserController {
     @Resource
     private LoginService loginService;
 
-    @GetMapping("/getUserById")
-    public UserDto getUserById(HttpServletRequest request, Integer id){
-        if (!loginService.verify(request)){
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity<UserDto> getUserById(HttpServletRequest request,@PathVariable Integer id) {
+        if (!loginService.verify(request)) {
             throw new RuntimeException("没有登陆");
         }
-        User user = userService.getUserById(id);
-
+        Optional<User> userOptional = userService.getUserById(id);
+        if (!userOptional.isPresent()) {
+            return  ResponseEntity.notFound().build();
+        }
         UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(user,userDto);
+        BeanUtils.copyProperties(userOptional.get(), userDto);
 
-        return userDto;
+        return ResponseEntity.ok(userDto);
     }
 }

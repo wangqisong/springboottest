@@ -4,7 +4,7 @@ public class HttpResult {
     private ResultStatus resultStatus;
     private String jsonData;
     enum ResultStatus{
-        SUCCESS,ERROR;
+        SUCCESS,ERROR
     }
 
     private HttpResult( ResultStatus resultStatus,String jsonData){

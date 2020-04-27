@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+</head>
+<body>
+<h1>登录2</h1>
+
+<form id="loginForm" th:action="@{/loginController/login}" method="post" >
+    <p>用户名：<input name="username" type="text" placeholder="userName"></p>
+    <p>密 码：<input name="password" type="password" placeholder="Password"></p>
+    <button id="loginButton" type="submit">提交</button>
+</form>
+</body>
+</html>

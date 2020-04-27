@@ -2,6 +2,8 @@ package com.example.springboottest.service;
 
 import com.example.springboottest.model.User;
 
+import java.util.Optional;
+
 public interface UserService {
-    public User getUserById(Integer id);
+    Optional<User> getUserById(Integer id);
 }
